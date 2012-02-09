@@ -1,1 +1,30 @@
-To be created
+What the plugin does?
+
+I was trying to find a way to externalize my javascript code but couldn't work with basic methods as I wanted to load specific Javascript and CSS aswell as custom made functions separately for each page. So I created a loader which is included on the main template view.
+
+The Result
+
+All the scripts are loaded and appended to the head tag, all of the CSS is loaded and appended to the head tag and all the functions are put into the document.ready of the document and called. If javascript is disabled however, the extra css and javascript load.
+
+Usage
+
+Create an external javascript file for the page that you want to work with.
+
+Define any plugins or additional scripts that this page needs to load.
+
+var Scripts = new Array('jquery.autoComplete.min.js');
+
+Link all of the styles that the plugins or page requires 
+
+var Styles = new Array('jquery/jquery.autoComplete.css');
+
+var Functions = new Array();
+
+Add a function to the array which will be called when the page has loaded. This should contain your any plugin configurations that are required on the page load. The name such as 'locate_member' is not important and should conform to javascript naming conventions.
+
+Functions['locate_member'] = function() {
+    $('input[name=member_name]').autoComplete({
+        'ajax': base_url + 'admins/ajax_member_list',
+        'postVar': 'username'
+    });
+};
